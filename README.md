@@ -1,5 +1,5 @@
 # makeup
-![Bienvenidos a nustra pagina web de makeup](![image]([https://github.com/user-attachments/assets/f2d025cf-e803-4bd4-9626-e167bb6731d0](https://th.bing.com/th/id/OIP.yJKlNtYa0F3Ms1IBiKaODgHaE8?rs=1&pid=ImgDetMain))
+![Bienvenidos a nustra pagina web de makeup](![https://github.com/user-attachments/assets/f2d025cf-e803-4bd4-9626-e167bb6731d0](https://th.bing.com/th/id/OIP.yJKlNtYa0F3Ms1IBiKaODgHaE8?rs=1&pid=ImgDetMain]([https://github.com/user-attachments/assets/f2d025cf-e803-4bd4-9626-e167bb6731d0](https://th.bing.com/th/id/OIP.yJKlNtYa0F3Ms1IBiKaODgHaE8?rs=1&pid=ImgDetMain))
 )
 Integrantes 
 1. Viridiana Peña Estrada
