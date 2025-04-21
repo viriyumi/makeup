@@ -7,12 +7,8 @@ Integrantes
 3. Marlene Sanchez Monroy
 4. Denisse Alejandra Garcia Escobar
 
-Alejandra
-1. Realizar la pagina principal, lo que es el inicio
+Alejandra 1. Realizar la pagina principal, lo que es el inicio
 Creacion de las siguientes paginas secundarias
-Fernanda
-1. Realizara la pagina para registrarnos a my makeup
-Marlene
-1. Realizara la pagina donde vendra el contacto de nuestra pagina
-Viridiana
-1. Realizara la pagina de la forma en que el cliente va a pagar
+Fernanda 1. Realizara la pagina para registrarnos a my makeup
+Marlene 1. Realizara la pagina donde vendra el contacto de nuestra pagina
+Viridiana 1. Realizara la pagina de la forma en que el cliente va a pagar
