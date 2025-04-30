@@ -1,12 +1,6 @@
-# makeup
-![Bienvenidos a nustra pagina web de makeup](![image](https://github.com/user-attachments/assets/f2d025cf-e803-4bd4-9626-e167bb6731d0)
-)
+1 alinear los colores de todas las imagenes
+que las imagenes queden a la misma altura
+hacer css del html 
+que los subindices si te manden a donde corresponde
 
-
-
-
-Integrantes 
-1. Viridiana Peña Estrada
-2. Maria Fernanda Ortega Delgado
-3. Marlene Sanchez Monroy
-4. Denisse Alejandra Garcia Escobar  
+![Uploading WhatsApp Image 2025-04-23 at 08.11.46.jpeg…]()
