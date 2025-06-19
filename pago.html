@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tienda Pink Beauty con Carrito</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffe6f0;
+      color: #4d0039;
+    }
+    header {
+      background-color: #ffb6c1;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      background-color: #ffc0cb;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+    nav a {
+      color: #4d0039;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .section {
+      padding: 30px;
+      text-align: center;
+    }
+    .section h2 {
+      color: #cc0066;
+    }
+    .products {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .product-card {
+      background-color: #fff0f5;
+      border: 1px solid #ff99cc;
+      border-radius: 10px;
+      padding: 15px;
+      width: 200px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .product-card p {
+      margin: 5px 0;
+      font-weight: 600;
+    }
+    .btn-add {
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: auto;
+    }
+    .btn-add:hover {
+      background-color: #c2185b;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+    .tab-button {
+      flex: 1 1 auto;
+      min-width: 100px;
+      max-width: 140px;
+      background: #fce4ec;
+      border: 2px solid #f8bbd0;
+      padding: 12px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #880e4f;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .tab-button.active {
+      background: #ec407a;
+      color: white;
+      border-color: #ec407a;
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+    }
+    .tab-button:hover {
+      background: #f06292;
+      color: white;
+    }
+    .form-container {
+      display: none;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+      margin: auto;
+      margin-bottom: 30px;
+    }
+    .form-container.active {
+      display: block;
+    }
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      color: #c2185b;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #f48fb1;
+      outline: none;
+    }
+    .btn-finalizar {
+      width: 100%;
+      background: #e91e63;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+    }
+    .btn-finalizar:hover {
+      background: #c2185b;
+    }
+    .descripcion {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    .product-image {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .product-image img {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #carrito {
+      position: fixed;
+      right: 20px;
+      top: 80px;
+      background: #ffb6c1cc;
+      border: 2px solid #ec407a;
+      border-radius: 15px;
+      padding: 15px;
+      width: 280px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 15px rgba(236,64,122,0.5);
+      font-size: 14px;
+      color: #4d0039;
+      z-index: 1000;
+    }
+    #carrito h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: 700;
+    }
+    #carrito ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #carrito ul li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    #carrito .total {
+      font-weight: 700;
+      font-size: 16px;
+      border-top: 1px solid #ec407a;
+      padding-top: 10px;
+      text-align: right;
+    }
+    #vaciar-carrito {
+      background: #c2185b;
+      border: none;
+      color: white;
+      width: 100%;
+      padding: 8px 0;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    #vaciar-carrito:hover {
+      background: #880e4f;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Pink Beauty - Tu tienda de maquillaje</h1>
+</header>
+
+<nav>
+  <a href="#mascarillas">Mascarillas</a>
+  <a href="#maquillaje">Maquillaje</a>
+  <a href="#sombras">Sombras</a>
+  <a href="#labiales">Labiales</a>
+  <a href="#pago">Pago</a>
+</nav>
+
+<section class="section" id="mascarillas">
+  <h2>Mascarillas</h2>
+  <div class="products">
+    <div class="product-card" data-name="Mascarilla de Rosas" data-price="150">
+      <img src="https://kissbeautymedellin.com/wp-content/uploads/2022/03/135403RO-1496x1536.jpg" alt="Mascarilla de rosas" />
+      <p>Mascarilla de Rosas</p>
+      <p>$150 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+    <div class="product-card" data-name="Mascarilla Hidratante" data-price="180">
+      <img src="https://m.media-amazon.com/images/I/81jhNvFzPWL._AC_SL1500_.jpg" alt="Mascarilla hidratante" />
+      <p>Mascarilla Hidratante</p>
+      <p>$180 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="maquillaje">
+  <h2>Maquillaje</h2>
+  <div class="products">
+    <div class="product-card" data-name="Base líquida tono claro" data-price="220">
+      <img src="https://th.bing.com/th/id/OIP.uciu3SFhfpndDud6KvZy4wHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Base líquida tono claro" />
+      <p>Base líquida tono claro</p>
+      <p>$220 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+    <div class="product-card" data-name="Corrector HD" data-price="170">
+      <img src="https://th.bing.com/th/id/OIP.oUttD4KX2rjJGPlXzeKh6wHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Corrector HD" />
+      <p>Corrector HD</p>
+      <p>$170 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sombras">
+  <h2>Sombras</h2>
+  <div class="products">
+    <div class="product-card" data-name="Paleta de Sombras Rosas" data-price="300">
+      <img src="https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1635277128375-1010369_paleta-de-sombras-nuances-rosa-ludurana-10413_l2_637394917926637467.jpg" alt="Paleta Rosas" />
+      <p>Paleta de Sombras Rosas</p>
+      <p>$300 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+    <div class="product-card" data-name="Paleta de Sombras Nude" data-price="320">
+      <img src="https://www.sephora.es/on/demandware.static/-/Sites-masterCatalog_Sephora/default/dwa241455f/images/hi-res/alternates/PID_alternate1/PID_alternate1_101/P3524144_1.jpg" alt="Paleta Nude" />
+      <p>Paleta de Sombras Nude</p>
+      <p>$320 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="labiales">
+  <h2>Labiales</h2>
+  <div class="products">
+    <div class="product-card" data-name="Labial Rosa Mate" data-price="130">
+      <img src="https://th.bing.com/th/id/OIP.sf39Q-0HoQQAMZLG7KFJYwAAAA?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Labial Rosa Mate" />
+      <p>Labial Rosa Mate</p>
+      <p>$130 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+    <div class="product-card" data-name="Labial Rojo Intenso" data-price="140">
+      <img src="https://th.bing.com/th/id/OIP.nLue6OImzQmwdNmHxXZCEAHaE7?w=800&h=533&rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Labial Rojo Intenso" />
+      <p>Labial Rojo Intenso</p>
+      <p>$140 MXN</p>
+      <button class="btn-add">Agregar al carrito</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pago">
+  <h2>Selecciona un método de pago</h2>
+
+  <div class="product-image">
+    <img src="https://thaka.bing.com/th/id/OIP.WE8dQ9oH_OP4Rauw8H8JtwHaHa?rs=1&pid=ImgDetMain" alt="Imagen del producto" style="width: 200px; height: 200px; object-fit: cover;" />
+  </div>
+
+  <div class="input-group" style="max-width: 100px; margin: auto 0 30px;">
+    <label for="cantidad">Cantidad</label>
+    <input type="number" id="cantidad" name="cantidad" min="1" value="1" />
+  </div>
+
+  <div class="tabs">
+    <button class="tab-button active" data-tab="tarjeta">💳 Tarjeta</button>
+    <button class="tab-button" data-tab="efectivo">💵 Efectivo</button>
+    <button class="tab-button" data-tab="debito">🏦 Débito</button>
+    <button class="tab-button" data-tab="transferencia">📱 Transferencia</button>
+    <button class="tab-button" data-tab="oxxo">🧾 OXXO</button>
+  </div>
+
+  <!-- Formulario Tarjeta -->
+  <div class="form-container active" id="tarjeta">
+    <div class="input-group">
+      <label>Número de tarjeta</label>
+      <input type="text" placeholder="XXXX XXXX XXXX XXXX" />
+    </div>
+    <div class="input-group">
+      <label>Nombre del titular</label>
+      <input type="text" placeholder="Como aparece en la tarjeta" />
+    </div>
+    <div class="input-group">
+      <label>Vencimiento</label>
+      <input type="month" />
+    </div>
+    <div class="input-group">
+      <label>CVV</label>
+      <input type="text" maxlength="3" />
+    </div>
+    <button class="btn-finalizar">Pagar con tarjeta</button>
+  </div>
+
+  <!-- Formulario Efectivo -->
+  <div class="form-container" id="efectivo">
+    <p class="descripcion">Puedes pagar en efectivo al momento de recibir tu pedido.</p>
+    <div class="input-group">
+      <label>Monto a pagar</label>
+      <input type="number" placeholder="$0.00" />
+    </div>
+    <div class="input-group">
+      <label>¿Deseas cambio?</label>
+      <input type="text" placeholder="Ej: Tengo un billete de $500" />
+    </div>
+    <button class="btn-finalizar">Confirmar pago en efectivo</button>
+  </div>
+
+  <!-- Formulario Débito -->
+  <div class="form-container" id="debito">
+    <p class="descripcion">Introduce los datos de tu tarjeta de débito:</p>
+    <div class="input-group">
+      <label>Banco</label>
+      <input type="text" placeholder="Ej: BBVA, Banamex" />
+    </div>
+    <div class="input-group">
+      <label>CLABE</label>
+      <input type="text" maxlength="18" />
+    </div>
+    <div class="input-group">
+      <label>Nombre del titular</label>
+      <input type="text" />
+    </div>
+    <button class="btn-finalizar">Pagar con débito</button>
+  </div>
+
+  <!-- Formulario Transferencia -->
+  <div class="form-container" id="transferencia">
+    <p class="descripcion">Realiza una transferencia desde tu app bancaria.</p>
+    <div class="input-group">
+      <label>Número de cuenta</label>
+      <input type="text" value="012345678901234567" readonly />
+    </div>
+    <div class="input-group">
+      <label>Sube el comprobante</label>
+      <input type="file" />
+    </div>
+    <button class="btn-finalizar">Confirmar transferencia</button>
+  </div>
+
+  <!-- Formulario OXXO -->
+  <div class="form-container" id="oxxo">
+    <p class="descripcion">Lleva esta referencia a tu tienda OXXO más cercana.</p>
+    <div class="input-group">
+      <label>Referencia de pago</label>
+      <input type="text" value="1234 5678 9012 3456" readonly />
+    </div>
+    <button class="btn-finalizar">Confirmar pago en OXXO</button>
+  </div>
+</section>
+
+<!-- Carrito flotante -->
+<div id="carrito">
+  <h3>Carrito de Compras</h3>
+  <ul id="lista-carrito"></ul>
+  <div class="total">Total: $<span id="total-carrito">0</span> MXN</div>
+  <button id="vaciar-carrito">Vaciar carrito</button>
+</div>
+
+<footer>
+  <p>&copy; 2025 Pink Beauty. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll(".tab-button");
+  const forms = document.querySelectorAll(".form-container");
+
+  tabs.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabs.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      forms.forEach(form => {
+        form.classList.remove("active");
+        if (form.id === btn.dataset.tab) form.classList.add("active");
+      });
+    });
+  });
+
+  // Carrito
+  const carrito = [];
+  const listaCarrito = document.getElementById("lista-carrito");
+  const totalCarritoSpan = document.getElementById("total-carrito");
+  const vaciarBtn = document.getElementById("vaciar-carrito");
+
+  // Función para actualizar el carrito en la interfaz
+  function actualizarCarrito() {
+    listaCarrito.innerHTML = "";
+    let total = 0;
+    carrito.forEach((item, index) => {
+      const li = document.createElement("li");
+      li.textContent = `${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad} MXN`;
+      
+      // Botón para eliminar un solo producto
+      const btnEliminar = document.createElement("button");
+      btnEliminar.textContent = "X";
+      btnEliminar.style.marginLeft = "10px";
+      btnEliminar.style.background = "#c2185b";
+      btnEliminar.style.color = "white";
+      btnEliminar.style.border = "none";
+      btnEliminar.style.borderRadius = "50%";
+      btnEliminar.style.width = "20px";
+      btnEliminar.style.cursor = "pointer";
+      btnEliminar.title = "Eliminar producto";
+      btnEliminar.addEventListener("click", () => {
+        carrito.splice(index, 1);
+        actualizarCarrito();
+      });
+      
+      li.appendChild(btnEliminar);
+      listaCarrito.appendChild(li);
+      total += item.precio * item.cantidad;
+    });
+    totalCarritoSpan.textContent = total.toFixed(2);
+  }
+
+  // Vaciar carrito
+  vaciarBtn.addEventListener("click", () => {
+    carrito.length = 0;
+    actualizarCarrito();
+  });
+
+  // Botones agregar al carrito
+  const btnsAgregar = document.querySelectorAll(".btn-add");
+  btnsAgregar.forEach(btn => {
+    btn.addEventListener("click", e => {
+      const card = e.target.closest(".product-card");
+      const nombre = card.dataset.name;
+      const precio = Number(card.dataset.price);
+      const cantidad = 1;
+
+      // Si el producto ya está, aumenta cantidad
+      const productoExistente = carrito.find(item => item.nombre === nombre);
+      if (productoExistente) {
+        productoExistente.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio, cantidad });
+      }
+      actualizarCarrito();
+    });
+  });
+
+  // Inicializa el carrito vacío
+  actualizarCarrito();
+});
